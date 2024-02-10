@@ -3,9 +3,9 @@ import app from '@/composables/axiosConfig';
 import type {House} from "~/domains/types/house";
 import type {LocationQueryValue} from "vue-router";
 
-export const getHouseByUserId = async (user:string): Promise<House[]> => {
+export const getHouseByUserId = async (): Promise<House[]> => {
     // Construct your API URL with fields and date filters
-    const url = `method/water_api.api.get_house_records_for_user?user=${user}`;
+    const url = `method/water_api.api.get_house_records_for_user`;
     try {
         const response = await app.get(url);
         return response.data.data;

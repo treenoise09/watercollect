@@ -30,18 +30,14 @@ import getCookie from "~/utils/cookies";
 const houses = ref([] as House[]);
 const router = useRouter();
 const ownerName = ref("")
-const isShow = ref(false)
+const isShow = ref(true)
 
 onMounted(async () => {
   const role = localStorage.getItem("role")
   try {
     if(role === 'User'){
-      const userId = getCookie("user_id") ?? null
-      if(userId === null){
-        throw new Error()
-      }
-      isShow.value = true
-      houses.value = await getHouseByUserId(userId);
+      isShow.value = false
+      houses.value = await getHouseByUserId();
     }else{
       houses.value = await getHouseByName("")
     }

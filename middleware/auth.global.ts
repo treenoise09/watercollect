@@ -30,7 +30,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/login')
     }
     const USER = 'User'
-    const USER_PATH = ["/homeselect","/AddBill"]
+    const USER_PATH = ["/homeselect","/info"]
     const WATER_BILL_COLLECTOR = 'Water Bill Collector'
     const TREASURER = 'Treasurer'
     const TREASURER_PATH = ["/report"]
