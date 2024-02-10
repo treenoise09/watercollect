@@ -111,7 +111,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import {addbillHouseInfo} from '../Services/addbillHouseService.ts'
+import {addbillHouseInfo} from '~/services/addbillHouseService.ts'
 
 
 const houseInfo = ref(null);

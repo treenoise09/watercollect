@@ -44,7 +44,7 @@
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { ref } from "vue";
-import { getPaymentRecordByMonthAndYear } from '../services/paymentRecordService';
+import { getPaymentRecordByMonthAndYear } from '~/services/paymentRecordService';
 import type { paymentRecord } from "~/domains/types/paymentRecord";
 
 const month = ref({

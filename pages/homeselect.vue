@@ -18,7 +18,7 @@
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
-  import { houseselect } from '../Services/houseselectService.ts';
+  import { houseselect } from '~/services/houseselectService.ts';
 
   const houses = ref([]);
   const router = useRouter();
