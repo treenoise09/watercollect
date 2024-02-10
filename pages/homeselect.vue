@@ -12,8 +12,8 @@
              class="m-3 p-3 border rounded-md border-sky-500">
           <p><b>ชื่อผู้ใช้น้ำ</b> {{ house.owner_name }}</p>
           <p><b>ที่อยู่</b> {{ house.address }}</p>
-          <p><b>ค้างชำระ</b> - บาท</p>
-          <p><b>หมายเลขมิเตอร์ประจำเดือน</b> -</p>
+          <p><b>ค้างชำระ</b>{{house.payment.reduce((accumulator, currentValue) => accumulator + currentValue.paid ? 0 : currentValue.payment ,0)}} - บาท</p>
+          <p><b>หมายเลขมิเตอร์ประจำเดือน</b> {{house.meter_id}}</p>
         </div>
       </div>
     </div>

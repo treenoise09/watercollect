@@ -39,9 +39,9 @@ export const getHouseByName = async (owner_name:string): Promise<House[]> => {
     }
 };
 
-export const getHouseByHouseId = async (house_id:string |  LocationQueryValue[]): Promise<House> => {
+export const getHouseByHouseId = async (house_id:string |  LocationQueryValue[],limit = 20): Promise<House> => {
     // Construct your API URL with fields and date filters
-    const url = `${BASE_URL}/method/water_api.api.get_house_by_id?house_id=${house_id}`;
+    const url = `${BASE_URL}/method/water_api.api.get_house_by_id?house_id=${house_id}&limit=${limit}`;
     try {
         const response = await axios.get(url, {
             headers: {
