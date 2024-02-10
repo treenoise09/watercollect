@@ -32,7 +32,7 @@
   }
 });
   
-  function info(houseName) {
+  function info(houseName:string) {
     router.push({ path: '/info', query: { houseName } });
   }
   </script>

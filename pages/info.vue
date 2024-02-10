@@ -9,8 +9,8 @@
                         ข้อมูลผู้ใช้น้ำ
                         <Icon name="mdi:account" class="text-blue-500" />
                     </div>
-                    <p><b>ชื่อผู้ใช้น้ำ</b> นายสมชาย แมนมาก</p>
-                    <p><b>ที่อยู่</b> 389 ม.3 อ.เมือง จ.พะเยา</p>
+                    <p><b>ชื่อผู้ใช้น้ำ</b> {{houseInfo.owner_name}}</p>
+                    <p><b>ที่อยู่</b> {{houseInfo.address}}</p>
                 </div>
             </div>
 
@@ -26,77 +26,11 @@
                     </thead>
                     <tbody class="rounded-b-md">
                         <!-- row 1 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">มกราคม</td>
-                            <td class="border border-black">20</td>
-                            <td class="border border-black">140</td>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">ธันวาคม</td>
-                            <td class="border border-black">15</td>
-                            <td class="border border-black">105</td>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">พฤษจิกายน</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 4 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">ตุลาคม</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 5 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">กันยายน</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 6 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">สิงหาคม</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 7 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">กรกฎาคม</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 8 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">มิถุนายน</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 9 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">พฤษภาคม</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 10 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">เมษายน</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 11 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">มีนาคม</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
-                        <!-- row 12 -->
-                        <tr class="border border-black">
-                            <td class="border border-black">กุมภาพันธ์</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
+                        <tr v-for="item in paymentRecord" :key="item.house.name" class="border border-black">
+                    <td class="border border-black">{{ item.date }}</td>
+                    <td class="border border-black">{{ item.unit }}</td>
+                    <td class="border border-black">{{ item.payment }}</td>
+                </tr>
 
                     </tbody>
                 </table>
@@ -112,18 +46,22 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {addbillHouseInfo} from '~/services/addbillHouseService.ts'
+import type {paymentRecord} from '../domains/types/paymentRecord'
+import type {House} from '../domains/types/house'
 
-
-const houseInfo = ref(null);
+const houseInfo = ref({} as House);
+const paymentRecord  = ref([] as paymentRecord[])
 const router = useRouter()
 const route = useRoute();
 const houseName = route.query.houseName;
 onMounted(async () => {
   if (houseName) {
     try {
-      const response = await addbillHouseInfo(houseName);
-      console.log(response.data.data)
-      houseInfo.value = response.data.data;
+        const response = await addbillHouseInfo(houseName);
+        console.log(response);
+        houseInfo.value = response[0].house[0];
+        console.log(houseInfo)
+        paymentRecord.value = response;
       // Process the data as required
     } catch (error) {
       console.error('Error fetching data:', error);
