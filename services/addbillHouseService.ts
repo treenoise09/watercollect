@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { House } from "~/domains/types/house";
-import type { PaymentRecord } from "~/domains/types/paymentRecord";
+import type {paymentRecord} from "~/domains/types/paymentRecord";
 
 const API_BASE_URL = "http://192.168.1.104:8000/api";
 const fields = '["date","unit","payment","maintenence_fee","paid","house"]';
@@ -27,7 +27,7 @@ export const addbillHouseInfo = async (houseName:string): Promise<paymentRecord[
     );
 
     if (paymentResponse.data && paymentResponse.data.data) {
-      return paymentResponse.data.data.map(payment => {
+      return paymentResponse.data.data.map((payment: paymentRecord) => {
         const new_payment = payment;
         new_payment.house = houseResponse.data.data; // Assuming this is the desired structure
         return new_payment;

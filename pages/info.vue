@@ -26,7 +26,7 @@
                     </thead>
                     <tbody class="rounded-b-md">
                         <!-- row 1 -->
-                        <tr v-for="item in paymentRecord" :key="item.house.name" class="border border-black">
+                        <tr v-for="item in houseInfo.payment" :key="item.house.name" class="border border-black">
                     <td class="border border-black">{{ item.date }}</td>
                     <td class="border border-black">{{ item.unit }}</td>
                     <td class="border border-black">{{ item.payment }}</td>
@@ -45,23 +45,17 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import {addbillHouseInfo} from '~/services/addbillHouseService.ts'
-import type {paymentRecord} from '../domains/types/paymentRecord'
-import type {House} from '../domains/types/house'
+import type {House} from '~/domains/types/house'
+import {getHouseByHouseId} from "~/services/houseService";
 
 const houseInfo = ref({} as House);
-const paymentRecord  = ref([] as paymentRecord[])
 const router = useRouter()
 const route = useRoute();
 const houseName = route.query.houseName;
 onMounted(async () => {
   if (houseName) {
     try {
-        const response = await addbillHouseInfo(houseName);
-        console.log(response);
-        houseInfo.value = response[0].house[0];
-        console.log(houseInfo)
-        paymentRecord.value = response;
+        houseInfo.value = await getHouseByHouseId(houseName);
       // Process the data as required
     } catch (error) {
       console.error('Error fetching data:', error);

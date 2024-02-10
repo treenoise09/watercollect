@@ -8,7 +8,11 @@
     </div>
   </template>
   
-  <script>
+  <script >
+  definePageMeta({
+    middleware: ["check-role"]
+    // or middleware: 'auth'
+  })
   export default {
     methods: {
       navigateTo(route) {

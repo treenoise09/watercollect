@@ -70,22 +70,20 @@ async function login() {
   let config = {
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://192.168.1.104:8000/api/method/login',
+    url: 'http://192.168.1.104:8000/api/method/water_api.api.water_login',
     headers: { 
       'Content-Type': 'application/json', 
       'Accept': 'application/json', 
         },
-        withCredentials: true,
     data: data
   };
 
   try {
     const response = await axios.request(config);
-    
-    console.log(response.data);
-    console.log(response.headers.get("Set-Cookie"));
+
     // Handle login success, e.g., navigate to another route
-    router.push({ path: '/home' });
+    localStorage.setItem("role",response.data.message.roles[0])
+    await router.push({path: '/home'});
   } catch (error) {
     console.error(error);
     // Handle login failure, e.g., show error message

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import type { paymentRecord } from '~/domains/types/paymentRecord'
+import type {paymentRecord} from '~/domains/types/paymentRecord'
+
 const BASE_URL = 'http://192.168.1.104:8000/api'
 const API_URL = 'Payment Record'
 const fields = '["date","unit","payment","maintenence_fee","paid","house"]'
@@ -14,8 +15,7 @@ export const getPaymentRecordByMonthAndYear = async (month: number, year: number
             },
             withCredentials:true
         });
-        const paymentRecords: paymentRecord[] = response.data.data
-        return paymentRecords;
+        return response.data.data;
     } catch (error) {
         console.error('Error fetching payment records:', error);
         throw error;
