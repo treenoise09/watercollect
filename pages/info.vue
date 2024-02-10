@@ -9,8 +9,10 @@
                         ข้อมูลผู้ใช้น้ำ
                         <Icon name="mdi:account" class="text-blue-500" />
                     </div>
-                    <p><b>ชื่อผู้ใช้น้ำ</b> {{houseInfo.owner_name}}</p>
+                    <p><b>ชื่อ-นามสกุล</b> {{houseInfo.owner_name}}</p>
                     <p><b>ที่อยู่</b> {{houseInfo.address}}</p>
+                    <p><b>หมายเลขมิเตอร์</b>{{ houseInfo.meter_id }}</p>
+                    <p><b>ยอดค้างชำระ</b>{{ houseInfo.payment?.reduce((accumulator, currentValue) => accumulator + (currentValue.paid ? 0 : currentValue.payment) ,0) }}</p>
                 </div>
             </div>
 
@@ -63,7 +65,7 @@ onMounted(async () => {
   }
 });
 function AddBill(){
-    router.push({ path: '/AddBill' })
+    router.push({ path: '/AddBill', query:{houseName}})
 }
 
 </script>

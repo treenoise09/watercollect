@@ -75,6 +75,7 @@ async function login() {
       'Content-Type': 'application/json', 
       'Accept': 'application/json', 
         },
+        withCredentials: true,
     data: data
   };
 

@@ -18,23 +18,12 @@
                     </thead>
                     <tbody>
                         <!-- row 1 -->
-                        <tr>
-                            <td class="border border-black">มกราคม</td>
-                            <td class="border border-black">20</td>
-                            <td class="border border-black">140</td>
+                        <tr v-for="item in houseInfo.payment" :key="item.house.name" class="border border-black">
+                            <td class="border border-black">{{ item.date }}</td>
+                            <td class="border border-black">{{ item.unit }}</td>
+                            <td class="border border-black">{{ item.payment }}</td>
                         </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <td class="border border-black">ธันวาคม</td>
-                            <td class="border border-black">15</td>
-                            <td class="border border-black">105</td>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <td class="border border-black">พฤษจิกายน</td>
-                            <td class="border border-black">17</td>
-                            <td class="border border-black">119</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -42,7 +31,7 @@
             <div class="mt-3 flex justify-center items-center space-x-4 mx-2">
                 <div class="text-left flex-1">เลขมิเตอร์ปัจจุบัน</div>
                 <div class="flex-0">
-                    <input type="number" placeholder="0"
+                    <input type="number" placeholder="0" v-model="formData.unit"
                         class="input input-bordered input-primary w-24 max-w-xs bg-white" />
                 </div>
                 <div class="text-center flex-1">หน่วย</div>
@@ -51,7 +40,7 @@
             <div class="mt-3 flex justify-center items-center space-x-4 mx-2">
                 <div class="text-left flex-1">ราคา</div>
                 <div class="flex-0">
-                    <input type="number" placeholder="0"
+                    <input type="number" placeholder="0" v-model="formData.payment"
                         class="input input-bordered input-primary w-24 max-w-xs bg-white" />
                 </div>
                 <div class="text-center flex-1">บาท</div>
@@ -74,8 +63,8 @@
                 <div class="text-center">
                     <p>ทำการชำระเงินเรียบร้อยแล้ว</p>
                     <div class="mt-5 flex flex-col items-center space-y-4">
-                        <button class="btn btn-error w-32 h-12 Accept border-0">ได้รับเงินแล้ว</button>
-                        <button class="btn btn-error w-32 h-12">ยังไม่ได้รับเงิน</button>
+                        <button class="btn btn-error w-32 h-12 Accept border-0" @click="AddBill(true)">ได้รับเงินแล้ว</button>
+                        <button class="btn btn-error w-32 h-12"  @click="AddBill(false)">ยังไม่ได้รับเงิน</button>
                     </div>
                 </div>
 
@@ -92,7 +81,64 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import ModalComponent from './Component/ModalComponent.vue';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
+import type { House } from '~/domains/types/house'
+import { getHouseByHouseId } from "~/services/houseService";
+import axios from "axios";
+
+
+const houseInfo = ref({} as House);
+const route = useRoute();
+const houseName = route.query.houseName;
+const formData = reactive({
+    house: houseName,
+    date: new Date().toISOString().split('T')[0],
+    unit: 0,
+    payment: 0.00,
+    maintenence_fee: 0.00,
+    paid: false
+})
+onMounted(async () => {
+    if (houseName) {
+        try {
+            houseInfo.value = await getHouseByHouseId(houseName);
+            console.log(houseName)
+            // Process the data as required
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+});
+async function AddBill(isPaid:boolean) {
+    formData.paid = isPaid;
+    const data = JSON.stringify({
+        "house": formData.house,
+        "date": formData.date,
+        "unit": formData.unit,
+        "payment": formData.payment,
+        "maintenence_fee": formData.maintenence_fee,
+        "paid": formData.paid
+    })
+    let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://192.168.1.104:8000/api/resource/Payment Record',
+    headers: { 
+      'Content-Type': 'application/json', 
+      'Accept': 'application/json', 
+        },
+        withCredentials: true,
+    data: data
+  };
+
+  try {
+    const response = await axios.request(config);
+console.log(response)
+} catch (error) {
+    console.error(error);
+    // Handle login failure, e.g., show error message
+  }
+}
 
 const month = ref({
     month: new Date().getMonth(),
@@ -121,5 +167,4 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
-
 </style>
