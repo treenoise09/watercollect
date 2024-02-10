@@ -37,12 +37,11 @@ onMounted(async () => {
   try {
     if(role === 'User'){
       const userId = getCookie("user_id") ?? null
-      // if(userId === null){
-      //   throw new Error()
-      // }
+      if(userId === null){
+        throw new Error()
+      }
       isShow.value = true
-      // houses.value = await getHouseByUserId(userId);
-      houses.value = await getHouseByName("")
+      houses.value = await getHouseByUserId(userId);
     }else{
       houses.value = await getHouseByName("")
     }
@@ -56,7 +55,7 @@ async function search() {
 }
 function info(houseName: string) {
   router.push({path: '/info', query: {houseName}});
-  
+
 }
 </script>
   

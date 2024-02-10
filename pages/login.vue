@@ -47,6 +47,7 @@
 import axios from 'axios';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import app from '@/composables/axiosConfig';
 
 let loginForm = reactive({
   username: "",
@@ -60,27 +61,14 @@ let hasErrors = reactive({
 
 const alertModal = ref<HTMLDialogElement>();
 const router = useRouter();
-
+const config = useRuntimeConfig()
 async function login() {
   let data = JSON.stringify({
     "usr": loginForm.username,
     "pwd": loginForm.password
   });
-
-  let config = {
-    method: 'post',
-    maxBodyLength: Infinity,
-    url: 'http://192.168.1.104:8000/api/method/water_api.api.water_login',
-    headers: { 
-      'Content-Type': 'application/json', 
-      'Accept': 'application/json', 
-        },
-        withCredentials: true,
-    data: data
-  };
-
   try {
-    const response = await axios.request(config);
+    const response = await app.post('method/water_api.api.water_login',data);
 
     // Handle login success, e.g., navigate to another route
     localStorage.setItem("role",response.data.message.roles[0])

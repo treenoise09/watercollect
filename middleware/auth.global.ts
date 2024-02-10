@@ -2,7 +2,11 @@ import axios from "axios";
 
 async function isAuthenticated(): Promise<boolean> {
     try{
-        const response = await axios.get('http://192.168.1.104:8000/api/method/frappe.auth.get_logged_user', {
+        const config = useRuntimeConfig();
+        const baseURL = config.public.env === "local"
+            ? "http://localhost:8000/api/"
+            : "http://192.168.1.104:8000/api/";
+        const response = await axios.get(baseURL+'method/frappe.auth.get_logged_user', {
             headers: {
                 'Content-Type': 'application/json'
             },
