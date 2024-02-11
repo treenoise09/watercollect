@@ -9,10 +9,10 @@
             ข้อมูลผู้ใช้น้ำ
             <Icon name="mdi:account" class="text-blue-500" />
           </div>
-          <p><b>ชื่อ-นามสกุล</b> {{ houseInfo.owner_name }}</p>
-          <p><b>ที่อยู่</b> {{ houseInfo.address }}</p>
-          <p><b>หมายเลขมิเตอร์</b>{{ houseInfo.meter_id }}</p>
-          <p><b>ยอดค้างชำระ</b>
+          <p><b>ชื่อ-นามสกุล </b> {{ houseInfo.owner_name }}</p>
+          <p><b>ที่อยู่ </b> {{ houseInfo.address }}</p>
+          <p><b>หมายเลขมิเตอร์ </b>{{ houseInfo.meter_id }}</p>
+          <p><b>ค้างจ่าย </b>
             <span :class="{ 'RedText': calculateOutstandingPayment(houseInfo.payment) !== 0 }">
               {{ calculateOutstandingPayment(houseInfo.payment) }}
             </span> บาท
@@ -41,7 +41,7 @@
           </tbody>
         </table>
       </div>
-      <button class="btn btn-block mt-3 bg-green-500 text-white text-xl font-bold disable" @click="showModal = true"
+      <button class="btn btn-block mt-3 bg-green-500 text-white text-xl font-bold"
         v-if="userRole === 'Water Bill Collector' && !isEdit && currentMonthRecordExists|| isEdit && paidStatus">
         จดมิเตอร์เรียบร้อย
         <icon name="icon-park-outline:bill" />
@@ -58,11 +58,11 @@
       </button>
       
       <ModalComponent :isVisible="showModal" @update:isVisible="showModal = $event">
-        <div class="text-center">
+        <div class="text-center  text-2xl">
           <p>ทำการชำระเงินเรียบร้อยแล้ว</p>
           <div class="mt-5 flex flex-col items-center space-y-4">
-            <button class="btn btn-error w-32 h-12 Accept border-0" @click="putEdit(true)">ได้รับเงินแล้ว</button>
-            <button class="btn btn-error w-32 h-12" @click="putEdit(false)">ยังไม่ได้รับเงิน</button>
+            <button class="btn btn-error w-60 h-12 Accept border border-black" @click="putEdit(true)">ได้รับเงินแล้ว</button>
+            <button class="btn btn-error w-60 h-12 border border-black" @click="putEdit(false)">ยังไม่ได้รับเงิน</button>
           </div>
         </div>
 

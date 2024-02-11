@@ -33,12 +33,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
   }
   
   .modal-content {
     background: white;
     padding: 20px;
     border-radius: 5px;
+    width: 80%;
+    height: 25%;
   }
   </style>
   

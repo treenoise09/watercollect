@@ -2,7 +2,7 @@
   <div class="flex h-dvh">
     <div class=" w-full text-black">
 
-            <div class=" my-6 text-2xl text-center rounded-md border-sky-500">เพิ่มการใช้น้ำเดือน</div>
+            <div class=" my-6 text-2xl text-center rounded-md border-sky-500">เพิ่มการใช้น้ำเดือนนี้</div>
             <div class="  text-center mb-3">ข้อมูลการใช้น้ำย้อนหลัง
                 <Icon name="ion:water" class="text-blue-500" />
             </div>
@@ -47,7 +47,7 @@
             </div>
 
 
-            <div class="mt-3 flex space-x-10 justify-center ">
+            <div class="mt-5 flex space-x-10 justify-center ">
                 <div>
                     <button class="btn btn-error text-white w-32 h-12 denie text-xl" @click="cancel">ยกเลิก</button>
                 </div>
@@ -60,11 +60,11 @@
             </div>
 
       <ModalComponent :isVisible="showModal" @update:isVisible="showModal = $event">
-        <div class="text-center">
+        <div class="text-center text-2xl">
           <p>ทำการชำระเงินเรียบร้อยแล้ว</p>
           <div class="mt-5 flex flex-col items-center space-y-4">
-            <button class="btn btn-error w-32 h-12 Accept border-0" @click="AddBill(true)">ได้รับเงินแล้ว</button>
-            <button class="btn btn-error w-32 h-12" @click="AddBill(false)">ยังไม่ได้รับเงิน</button>
+            <button class="btn btn-error w-60 h-12 Accept border border-black" @click="AddBill(true)">ได้รับเงินแล้ว</button>
+            <button class="btn btn-error w-60 h-12 border border-black" @click="AddBill(false)">ยังไม่ได้รับเงิน</button>
           </div>
         </div>
 

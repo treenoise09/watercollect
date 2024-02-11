@@ -17,7 +17,7 @@
           {{ calculatePayment(house.payment) }}
         </span> บาท
       </p>
-          <p><b>หมายเลขมิเตอร์ประจำเดือน </b> {{house.meter_id}}</p>
+          <p><b>เลขมิเตอร์ประจำเดือน </b> {{house.meter_id}}</p>
         </div>
       </div>
     </div>
