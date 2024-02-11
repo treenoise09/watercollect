@@ -61,7 +61,6 @@ let hasErrors = reactive({
 
 const alertModal = ref<HTMLDialogElement>();
 const router = useRouter();
-const config = useRuntimeConfig()
 async function login() {
   let data = JSON.stringify({
     "usr": loginForm.username,

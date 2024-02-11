@@ -20,7 +20,7 @@
           <span class="align-text-bottom">
             <span>สถานะ</span>
             <span :class="[textColor(data.paid)]" class="ml-1 text-md font-bold">{{ data.paid ? "จ่ายแล้ว" :
-              "ค้างชำระ" }}</span>
+              "ค้างชำระ จำนวน "+data.payment }}</span>
           </span>
         </div>
       </div>

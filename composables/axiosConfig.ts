@@ -1,8 +1,7 @@
 import axios from 'axios';
 const config = useRuntimeConfig()
-const baseURL = config.public.env === "local"
-    ? "http://localhost:8000/api/"
-    : "http://192.168.1.104:8000/api/"
+const baseURL = config.public.base_url
+console.log(baseURL)
 const app = axios.create({
     baseURL,
     withCredentials: true,
