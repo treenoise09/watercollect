@@ -1,5 +1,5 @@
 type RequestPaymentRecord = {
-    date : Date,
+    date : string,
     unit: number,
     payment: number,
     maintenence_fee:number,
